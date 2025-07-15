@@ -109,7 +109,7 @@ const fetchPreviousMatch = async (team) => { //team is in the format of TOR or P
             periodType: match.periodDescriptor.periodType,
             maxRegulationPeriods: match.periodDescriptor.maxRegulationPeriods,
         },
-        gameOutcome: match.gameOutcome.lastPeriodType
+        // gameOutcome: match.gameOutcome.lastPeriodType
     }))
     return simplified_prev_sched
 }
