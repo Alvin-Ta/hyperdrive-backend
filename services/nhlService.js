@@ -37,7 +37,7 @@ const fetchScheduleByDate = async (date) => {
             placeName: game.homeTeam.placeName.default,
             commonName: game.homeTeam.commonName.default,
             abbrev: game.homeTeam.abbrev,
-            darklogo: game.homeTeam.darkLogo,
+            darkLogo: game.homeTeam.darkLogo,
             score: game.homeTeam.score
 
         },
