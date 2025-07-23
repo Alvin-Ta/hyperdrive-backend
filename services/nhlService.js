@@ -19,7 +19,7 @@ const fetchScheduleByDate = async (date) => {
     const games = sched.gameWeek[0].games || [];
     
     const simplified_games = games.map(game => ({
-        game_id: game.id,
+        gameId: game.id,
         gameType: game.gameType,
         gameState: game.gameState, //would be live
         venue: game.venue.default,
