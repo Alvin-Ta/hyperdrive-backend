@@ -170,9 +170,55 @@ const getGameDetails = async (game_id) => {
         },
       
         matchup: {
-          skaterSeasonStats: resp.matchup?.skaterSeasonStats ?? [],
-          goalieSeasonStats: resp.matchup?.goalieSeasonStats ?? []
-        },
+            skaterSeasonStats: {
+              contextLabel: resp.matchup?.skaterSeasonStats?.contextLabel ?? "N/A",
+              contextSeason: resp.matchup?.skaterSeasonStats?.contextSeason ?? "N/A",
+              skaters: (resp.matchup?.skaterSeasonStats?.skaters ?? []).map(skater => ({
+                playerId: skater.playerId,
+                teamId: skater.teamId,
+                sweaterNumber: skater.sweaterNumber,
+                name: skater.name?.default ?? "",
+                position: skater.position,
+                gamesPlayed: skater.gamesPlayed,
+                goals: skater.goals,
+                assists: skater.assists,
+                points: skater.points,
+                plusMinus: skater.plusMinus,
+                pim: skater.pim,
+                avgPoints: skater.avgPoints,
+                avgTimeOnIce: skater.avgTimeOnIce,
+                gameWinningGoals: skater.gameWinningGoals,
+                shots: skater.shots,
+                shootingPctg: skater.shootingPctg,
+                faceoffWinningPctg: skater.faceoffWinningPctg,
+                powerPlayGoals: skater.powerPlayGoals,
+                blockedShots: skater.blockedShots,
+                hits: skater.hits
+              }))
+            },
+        
+            goalieSeasonStats: {
+              contextLabel: resp.matchup?.goalieSeasonStats?.contextLabel ?? "N/A",
+              contextSeason: resp.matchup?.goalieSeasonStats?.contextSeason ?? "N/A",
+              goalies: (resp.matchup?.goalieSeasonStats?.goalies ?? []).map(goalie => ({
+                playerId: goalie.playerId,
+                teamId: goalie.teamId,
+                sweaterNumber: goalie.sweaterNumber,
+                name: goalie.name?.default ?? "",
+                gamesPlayed: goalie.gamesPlayed,
+                wins: goalie.wins,
+                losses: goalie.losses,
+                otLosses: goalie.otLosses,
+                shotsAgainst: goalie.shotsAgainst,
+                goalsAgainst: goalie.goalsAgainst,
+                goalsAgainstAvg: goalie.goalsAgainstAvg,
+                savePctg: goalie.savePctg,
+                shutouts: goalie.shutouts,
+                saves: goalie.saves,
+                toi: goalie.toi
+              }))
+            }
+          },
       
         clock: resp.clock ?? null
       };
@@ -306,8 +352,6 @@ function sorter(position) {
         return b.goals - a.goals
     });
 }
-
-
 
 
 
