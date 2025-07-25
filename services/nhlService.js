@@ -74,6 +74,112 @@ const fetchBoxScore = async (game_id) => { //2024030234
     return boxscore
 }
 
+const getGameDetails = async (game_id) => {
+    const url = `https://api-web.nhle.com/v1/gamecenter/${game_id}/landing`;
+    const response = await axios.get(url);
+    const resp = response.data
+
+    const gameDetails = {
+        gameId: resp.id,
+        season: resp.season,
+        gameType: resp.gameType,
+        gameDate: resp.gameDate,
+        startTime: resp.startTimeUTC,
+        venue: resp.venue.default,
+        venueLocation: resp.venueLocation.default,
+        periodDescriptor: resp.periodDescriptor ?? null,
+        gameState: resp.gameState,
+        // gameScheduleState: resp.gameScheduleState,
+        // shootoutInUse: resp.shootoutInUse,
+        regPeriods: resp.regPeriods ?? null,
+        // otInUse: resp.otInUse,
+        // tiesInUse: resp.tiesInUse,
+      
+        awayTeam: {
+          id: resp.awayTeam.id,
+          commonName: resp.awayTeam.commonName.default,
+          abbrev: resp.awayTeam.abbrev,
+          placeName: resp.awayTeam.placeName.default,
+          cityName: resp.awayTeam.placeNameWithPreposition.default,
+          darkLogo: resp.awayTeam.darkLogo,
+          logo: resp.awayTeam.logo ?? null,
+          score: resp.awayTeam.score ?? null,
+          sog: resp.awayTeam.sog ?? null,
+          record: resp.awayTeam.record ?? null
+        },
+      
+        homeTeam: {
+          id: resp.homeTeam.id,
+          commonName: resp.homeTeam.commonName.default,
+          abbrev: resp.homeTeam.abbrev,
+          placeName: resp.homeTeam.placeName.default,
+          cityName: resp.homeTeam.placeNameWithPreposition.default,
+          darkLogo: resp.homeTeam.darkLogo,
+          logo: resp.homeTeam.logo ?? null,
+          score: resp.homeTeam.score ?? null,
+          sog: resp.homeTeam.sog ?? null,
+          record: resp.homeTeam.record ?? null
+        },
+      
+        summary: {
+          scoring: (resp.summary?.scoring ?? []).map(period => ({
+            periodDescriptor: period.periodDescriptor ?? {},
+            goals: (period.goals ?? []).map(goal => ({
+              playerId: goal.playerId,
+              name: {
+                firstName: goal.firstName?.default ?? "",
+                lastName: goal.lastName?.default ?? ""
+              },
+              teamAbbrev: goal.teamAbbrev?.default ?? "N/A",
+              headshot: goal.headshot ?? null,
+              highlightClipSharingUrl: goal.highlightClipSharingUrl ?? null,
+              highlightClipSharingUrlFr: goal.highlightClipSharingUrlFr ?? null,
+              goalsToDate: goal.goalsToDate ?? null,
+              awayScore: goal.awayScore ?? null,
+              homeScore: goal.homeScore ?? null,
+              leadingTeamAbbrev: goal.leadingTeamAbbrev?.default ?? null,
+              timeInPeriod: goal.timeInPeriod ?? null,
+              shotType: goal.shotType ?? null,
+              goalModifier: goal.goalModifier ?? null,
+              assists: (goal.assists ?? []).map(assist => ({
+                playerId: assist.playerId,
+                name: {
+                  firstName: assist.firstName?.default ?? "",
+                  lastName: assist.lastName?.default ?? ""
+                },
+                assistsToDate: assist.assistsToDate ?? null,
+                sweaterNumber: assist.sweaterNumber ?? null
+              })),
+              pptReplayUrl: goal.pptReplayUrl ?? null
+            }))
+          })),
+      
+          penalties: (resp.summary?.penalties ?? []).flatMap(period =>
+            (period.penalties ?? []).map(penalty => ({
+              timeInPeriod: penalty.timeInPeriod,
+              type: penalty.type,
+              duration: penalty.duration,
+              descKey: penalty.descKey,
+              committedByPlayer: penalty.committedByPlayer?.default ?? "N/A",
+              teamAbbrev: penalty.teamAbbrev?.default ?? "N/A",
+              drawnBy: penalty.drawnBy?.default ?? null
+            }))
+          ),
+      
+          threeStars: resp.summary?.threeStars ?? []
+        },
+      
+        matchup: {
+          skaterSeasonStats: resp.matchup?.skaterSeasonStats ?? [],
+          goalieSeasonStats: resp.matchup?.goalieSeasonStats ?? []
+        },
+      
+        clock: resp.clock ?? null
+      };
+
+      return gameDetails
+}
+
 const fetchPreviousMatch = async (team) => { //team is in the format of TOR or PEN
 
     const url = `https://api-web.nhle.com/v1/club-schedule-season/${team}/now`;
@@ -213,5 +319,6 @@ module.exports = {
     getTopPerformers,
     fetchPreviousMatch,
     fetchTeamPlayers,
-    fetchPlayerMatchupHist
+    fetchPlayerMatchupHist,
+    getGameDetails
 };
