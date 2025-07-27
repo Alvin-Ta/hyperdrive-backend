@@ -172,7 +172,7 @@ const getGameDetails = async (game_id) => {
         matchup: {
             skaterSeasonStats: {
               contextLabel: resp.matchup?.skaterSeasonStats?.contextLabel ?? "N/A",
-              contextSeason: resp.matchup?.skaterSeasonStats?.contextSeason ?? "N/A",
+              contextSeason: resp.matchup?.skaterSeasonStats?.contextSeason ?? null,
               skaters: (resp.matchup?.skaterSeasonStats?.skaters ?? []).map(skater => ({
                 playerId: skater.playerId,
                 teamId: skater.teamId,
@@ -199,7 +199,7 @@ const getGameDetails = async (game_id) => {
         
             goalieSeasonStats: {
               contextLabel: resp.matchup?.goalieSeasonStats?.contextLabel ?? "N/A",
-              contextSeason: resp.matchup?.goalieSeasonStats?.contextSeason ?? "N/A",
+              contextSeason: resp.matchup?.goalieSeasonStats?.contextSeason ?? null,
               goalies: (resp.matchup?.goalieSeasonStats?.goalies ?? []).map(goalie => ({
                 playerId: goalie.playerId,
                 teamId: goalie.teamId,
