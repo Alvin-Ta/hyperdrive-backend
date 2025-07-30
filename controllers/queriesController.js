@@ -4,9 +4,7 @@ const getPreviousMatches = async (req, res) => {
     const { team } = req.params;
     try {
         const previousMatches = await fetchPreviousMatch(team);
-        res.json({
-            previousMatches
-          });
+        res.json(previousMatches);
     } catch (err) {
         console.error('Error fetching previous match by team', err);
         res.status(500).json({ error: 'Failed to fetch previous match' });
@@ -32,7 +30,7 @@ const getPlayers = async (req, res) => {
     try {
         const players = await fetchTeamPlayers(team);
 
-        res.json({ players });
+        res.json(players);
     } catch (err) {
         console.error('Error fetching players by team', err);
         res.status(500).json({ error: 'Failed to fetch players' });
