@@ -13,7 +13,7 @@ const getPreviousMatches = async (req, res) => {
 
 const getTeamVsTeamRecord = async (req, res) => {
     const { team, opponent, season } = req.params;
-    const allGames = await fetchPreviousMatch(team);
+    const allGames = await fetchPreviousMatch(team, season);
 
     const selectGames = allGames.filter(game => {
         const home = game.homeTeam.abbrev;

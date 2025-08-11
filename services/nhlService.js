@@ -226,9 +226,9 @@ const getGameDetails = async (game_id) => {
       return gameDetails
 }
 
-const fetchPreviousMatch = async (team) => { //team is in the format of TOR or PEN
+const fetchPreviousMatch = async (team, season = "now") => { //team is in the format of TOR or PEN
 
-    const url = `https://api-web.nhle.com/v1/club-schedule-season/${team}/now`;
+    const url = `https://api-web.nhle.com/v1/club-schedule-season/${team}/${season}`;
     const response = await axios.get(url);
     const resp = response.data
     const sched = resp.games || [];
