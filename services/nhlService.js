@@ -341,7 +341,7 @@ function getTopPerformers(boxScore) {
     const merge_sort_away = sorter(merged_away).slice(0,2);
     const merge_sort_home = sorter(merged_home).slice(0,2);
 
-    return {homeTeamName: homeTeamName, homeTeam: merge_sort_home, hwayTeamName: awayTeamName, awayTeam: merge_sort_away};
+    return {homeTeamName: homeTeamName, homeTeam: merge_sort_home, awayTeamName: awayTeamName, awayTeam: merge_sort_away};
 }
 
 function sorter(position) {
