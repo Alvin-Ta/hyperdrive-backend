@@ -6,6 +6,47 @@ async function fetchPlayerGameLog(playerId, season, gameType) {
     return response.data;
 }
 
+async function fetchAllPlayers() {
+  const url1 = `https://api-web.nhle.com/v1/goalie-stats-leaders/current?categories=wins&limit=-1`
+  const url2 = `https://api-web.nhle.com/v1/skater-stats-leaders/current?categories=goals&limit=-1`
+  const response1 = await axios.get(url1);
+  const response2 = await axios.get(url2);
+  const resp1 = response1.data
+  const resp2 = response2.data
+
+
+  // console.log(resp1)
+  const goalies = resp1.wins.map(goalie => ({
+    id: goalie.id,
+    firstName: goalie.firstName.default,
+    lastName: goalie.lastName.default,
+    sweaterNumber: goalie.sweaterNumber,
+    headshot: goalie.headshot,
+    teamAbbrev: goalie.teamAbbrev,
+    teamName: goalie.teamName.default,
+    teamLogo: goalie.teamLogo,
+    position: goalie.position,
+    value: goalie.value
+  }))
+
+  console.log(resp2)
+  const players = resp2.goals.map(player => ({
+    id: player.id,
+    firstName: player.firstName.default,
+    lastName: player.lastName.default,
+    sweaterNumber: player.sweaterNumber,
+    headshot: player.headshot,
+    teamAbbrev: player.teamAbbrev,
+    teamName: player.teamName.default,
+    teamLogo: player.teamLogo,
+    position: player.position,
+    value: player.value
+  }))
+
+  all_players = [...goalies, ...players];
+  return all_players;
+}
+
 async function fetchCurrentSchedule() {
     const url = `https://api-web.nhle.com/v1/schedule/now`;
     const response = await axios.get(url);
@@ -357,6 +398,7 @@ function sorter(position) {
 
 module.exports = {
     fetchPlayerGameLog,
+    fetchAllPlayers,
     fetchCurrentSchedule,
     fetchScheduleByDate,
     fetchBoxScore,
