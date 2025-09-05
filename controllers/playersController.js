@@ -1,4 +1,4 @@
-const { fetchPlayerGameLog, fetchAllPlayers } = require('../services/nhlService');
+const { fetchPlayerGameLog, fetchAllPlayers, fetchPlayerInfo } = require('../services/nhlService');
 
 const getPlayerGameLog = async (req, res) => {
     const { id, season, gameType } = req.params;
@@ -22,4 +22,15 @@ const getAllPlayers = async (req, res) => {
       }
 };
 
-module.exports = { getPlayerGameLog, getAllPlayers };
+const getPlayerInfo = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const playerInfo = await fetchPlayerInfo(id);
+        res.json(playerInfo);
+    } catch (err) {
+        console.error('Error fetching player info:', err);
+        res.status(500).json({ error: 'Failed to fetch player info' });
+    }
+}
+
+module.exports = { getPlayerGameLog, getAllPlayers, getPlayerInfo };
