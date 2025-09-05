@@ -40,7 +40,7 @@ async function fetchPlayerInfo(playerId) {
     currentTeamId: resp.currentTeamId,
     currentTeamAbbrev: resp.currentTeamAbbrev,
     fullTeamName: resp.fullTeamName.default,
-    teamCommonName: resp.teamCommonName,
+    teamCommonName: resp.teamCommonName.default,
     firstName: resp.firstName.default,
     lastName: resp.lastName.default,
     //badges
