@@ -271,6 +271,61 @@ const fetchScheduleByDate = async (date) => {
     return simplified_games
 }
 
+const fetchPlayByPlay = async (game_id) => {
+    const url = `https://api-web.nhle.com/v1/gamecenter/${game_id}/play-by-play`
+    const response = await axios.get(url);
+    const resp = response.data
+
+    const rosterSpots = resp.rosterSpots.map(player => ({
+      teamId: player.teamId,
+      playerId: player.playerId,
+      firstName: player.firstName.default,
+      lastName: player.lastName.default,
+      sweaterNumber: player.sweaterNumber,
+      positionCode: player.positionCode,
+      headshot: player.headshot
+    }))
+
+    playByPlay = {
+      id: resp.id,
+      season: resp.season,
+      gameType: resp.gameType,
+      gameDate: resp.gameDate,
+      venue: resp.venue.default,
+      venueLocation: resp.venueLocation.default,
+      startTimeUTC: resp.startTimeUTC,
+      gameState: resp.gameState,
+      periodDescriptor: resp.periodDescriptor,
+      awayTeam: {
+        id: resp.awayTeam.id,
+        commonName: resp.awayTeam.commonName.default,
+        abbrev: resp.awayTeam.abbrev,
+        score: resp.awayTeam.score,
+        sog: resp.awayTeam.sog,
+        logo: resp.awayTeam.logo,
+        darkLogo: resp.awayTeam.darkLogo,
+        placeName: resp.awayTeam.placeName.default
+      },
+
+      homeTeam: {
+        id: resp.homeTeam.id,
+        commonName: resp.homeTeam.commonName.default,
+        abbrev: resp.homeTeam.abbrev,
+        score: resp.homeTeam.score,
+        sog: resp.homeTeam.sog,
+        logo: resp.homeTeam.logo,
+        darkLogo: resp.homeTeam.darkLogo,
+        placeName: resp.homeTeam.placeName.default
+      },
+      clock: resp.clock,
+      plays: resp.plays,
+      rosterSpots: rosterSpots
+    }
+
+    return playByPlay
+    
+}
+
 const fetchBoxScore = async (game_id) => { //2024030234
     const url = `https://api-web.nhle.com/v1/gamecenter/${game_id}/boxscore`;
     const response = await axios.get(url);
@@ -578,6 +633,7 @@ function sorter(position) {
 module.exports = {
     fetchPlayerGameLog,
     fetchAllPlayers,
+    fetchPlayByPlay,
     fetchCurrentSchedule,
     fetchScheduleByDate,
     fetchBoxScore,
