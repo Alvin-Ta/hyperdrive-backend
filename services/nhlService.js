@@ -102,41 +102,41 @@ async function fetchPlayerInfo(playerId) {
           shots: resp.featuredStats.regularSeason.career.shots
         }
       },
-      playoffs: {
-        curSeason: {
-          assists: resp.featuredStats.playoffs.subSeason.assists,
-          // gameWinningGoals: response.featuredStats.playoffs.subSeason.gameWinningGoals,
-          gamesPlayed: resp.featuredStats.playoffs.subSeason.gamesPlayed,
-          goals: resp.featuredStats.playoffs.subSeason.goals,
-          otGoals: resp.featuredStats.playoffs.subSeason.otGoals,
-          pim: resp.featuredStats.playoffs.subSeason.pim,
-          plusMinus: resp.featuredStats.playoffs.subSeason.plusMinus,
-          points: resp.featuredStats.playoffs.subSeason.points,
-          powerPlayGoals: resp.featuredStats.playoffs.subSeason.powerPlayGoals,
-          powerPlayPoints: resp.featuredStats.playoffs.subSeason.powerPlayPoints,
-          shootingPctg: resp.featuredStats.playoffs.subSeason.shootingPctg,
-          // shorthandedGoals: response.featuredStats.playoffs.subSeason.shorthandedGoals,
-          // shorthandedPoints: response.featuredStats.playoffs.subSeason.shorthandedPoints,
-          shots: resp.featuredStats.playoffs.subSeason.shots
-        },
+      // playoffs: {
+      //   curSeason: {
+      //     assists: resp.featuredStats.playoffs.subSeason.assists,
+      //     // gameWinningGoals: response.featuredStats.playoffs.subSeason.gameWinningGoals,
+      //     gamesPlayed: resp.featuredStats.playoffs.subSeason.gamesPlayed,
+      //     goals: resp.featuredStats.playoffs.subSeason.goals,
+      //     otGoals: resp.featuredStats.playoffs.subSeason.otGoals,
+      //     pim: resp.featuredStats.playoffs.subSeason.pim,
+      //     plusMinus: resp.featuredStats.playoffs.subSeason.plusMinus,
+      //     points: resp.featuredStats.playoffs.subSeason.points,
+      //     powerPlayGoals: resp.featuredStats.playoffs.subSeason.powerPlayGoals,
+      //     powerPlayPoints: resp.featuredStats.playoffs.subSeason.powerPlayPoints,
+      //     shootingPctg: resp.featuredStats.playoffs.subSeason.shootingPctg,
+      //     // shorthandedGoals: response.featuredStats.playoffs.subSeason.shorthandedGoals,
+      //     // shorthandedPoints: response.featuredStats.playoffs.subSeason.shorthandedPoints,
+      //     shots: resp.featuredStats.playoffs.subSeason.shots
+      //   },
 
-        career: {
-          assists: resp.featuredStats.playoffs.career.assists,
-          // gameWinningGoals: response.featuredStats.playoffs.career.gameWinningGoals,
-          gamesPlayed: resp.featuredStats.playoffs.career.gamesPlayed,
-          goals: resp.featuredStats.playoffs.career.goals,
-          otGoals: resp.featuredStats.playoffs.career.otGoals,
-          pim: resp.featuredStats.playoffs.career.pim,
-          plusMinus: resp.featuredStats.playoffs.career.plusMinus,
-          points: resp.featuredStats.playoffs.career.points,
-          powerPlayGoals: resp.featuredStats.playoffs.career.powerPlayGoals,
-          powerPlayPoints: resp.featuredStats.playoffs.career.powerPlayPoints,
-          shootingPctg: resp.featuredStats.playoffs.career.shootingPctg,
-          // shorthandedGoals: response.featuredStats.playoffs.career.shorthandedGoals,
-          // shorthandedPoints: response.featuredStats.playoffs.career.shorthandedPoints,
-          shots: resp.featuredStats.playoffs.career.shots
-        }
-      }
+      //   career: {
+      //     assists: resp.featuredStats.playoffs.career.assists,
+      //     // gameWinningGoals: response.featuredStats.playoffs.career.gameWinningGoals,
+      //     gamesPlayed: resp.featuredStats.playoffs.career.gamesPlayed,
+      //     goals: resp.featuredStats.playoffs.career.goals,
+      //     otGoals: resp.featuredStats.playoffs.career.otGoals,
+      //     pim: resp.featuredStats.playoffs.career.pim,
+      //     plusMinus: resp.featuredStats.playoffs.career.plusMinus,
+      //     points: resp.featuredStats.playoffs.career.points,
+      //     powerPlayGoals: resp.featuredStats.playoffs.career.powerPlayGoals,
+      //     powerPlayPoints: resp.featuredStats.playoffs.career.powerPlayPoints,
+      //     shootingPctg: resp.featuredStats.playoffs.career.shootingPctg,
+      //     // shorthandedGoals: response.featuredStats.playoffs.career.shorthandedGoals,
+      //     // shorthandedPoints: response.featuredStats.playoffs.career.shorthandedPoints,
+      //     shots: resp.featuredStats.playoffs.career.shots
+      //   }
+      // }
     },
 
     careerTotals: {
@@ -158,6 +158,7 @@ async function fetchPlayerInfo(playerId) {
           // shorthandedPoints: resp.careerTotals.regularSeason.shorthandedPoints,
           shots: resp.careerTotals.regularSeason.shots
       },
+      ...(resp.careerTotals?.playoffs && {
       playoffs: {
         assists: resp.careerTotals.playoffs.assists,
         avgToi: resp.careerTotals.playoffs.avgToi,
@@ -176,6 +177,7 @@ async function fetchPlayerInfo(playerId) {
         // shorthandedPoints: resp.careerTotals.playoffs.shorthandedPoints,
         shots: resp.careerTotals.playoffs.shots
       }
+    }),
     },
     last5Games: resp.last5Games,
     nhlSeasons,
