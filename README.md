@@ -1,6 +1,6 @@
 # hyperdrive-backend
 
-Node.js REST API that powers the [Hyperdrive iOS app](https://github.com/Alvin-Ta/hyperdrive). Processes the unofficial NHL API and exposes clean, structured endpoints for the client to consume.
+Node.js REST API that powers the [Hyperdrive iOS app](https://github.com/Alvin-Ta/hyperdrive-front). Processes the unofficial NHL API and exposes clean, structured endpoints for the client to consume.
 
 ---
 
@@ -56,7 +56,7 @@ hyperdrive-backend/
 |---|---|
 | Runtime | Node.js |
 | Framework | Express |
-| Data Source | Unofficial NHL REST API |
+| Data Source | [Unofficial NHL REST API](https://github.com/Zmalski/NHL-API-Reference) |
 | Deployment | Render |
 
 ---
