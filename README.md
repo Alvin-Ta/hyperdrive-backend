@@ -76,4 +76,4 @@ Server runs on `http://localhost:3000` by default.
 
 ## Related
 
-- [Hyperdrive iOS Client](https://github.com/Alvin-Ta/hyperdrive) — Swift/SwiftUI app that consumes this API
+- [Hyperdrive iOS Client](https://github.com/Alvin-Ta/hyperdrive-front) — Swift/SwiftUI app that consumes this API
